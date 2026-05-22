@@ -7,6 +7,13 @@
 ;   PWM Freq    : 100 Hz (10 ms period)
 ;   DAC         : 8-bit (Port 2), Bipolar Output ±2V
 ;
+;   Port Selection:
+;       Port 2 is used for the DAC data bus. Port 0 cannot be used because
+;       it lacks internal pull-up resistors (open-drain outputs) and would
+;       require external pull-ups to drive the DAC reliably. Port 3 cannot
+;       be used because it is a multi-function port — P3.0 (RXD) and P3.1
+;       (TXD) are reserved for UART serial communication in this design.
+;
 ;   Description:
 ;       This firmware implements a variable duty-cycle PWM generator using
 ;       Timer 0 interrupts. The PWM waveform drives an 8-bit DAC connected

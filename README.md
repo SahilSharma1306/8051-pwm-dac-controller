@@ -300,9 +300,10 @@ avrdude -c usbasp -p 8052 -U flash:w:pwm_dac_serial.hex
 ### Key Design Decisions
 
 1. **Software PWM over hardware** — Demonstrates low-level timer and interrupt mastery; the 8051 has no built-in PWM peripheral
-2. **Polling for serial, interrupts for PWM** — PWM timing is critical (must be jitter-free), while serial reception is latency-tolerant. This prioritization avoids interrupt contention
-3. **Direct register update** — The received byte writes directly to `R0` (duty cycle threshold), achieving sub-microsecond update latency with zero buffering overhead
-4. **8-bit auto-reload timers** — Mode 2 eliminates the need to manually reload timer values in the ISR, reducing ISR complexity and cycle count
+2. **Port 2 for DAC output** — Port 0 cannot be used because it **lacks internal pull-up resistors** (its outputs are open-drain), so it cannot reliably drive the DAC data lines without external pull-ups. Port 3 cannot be used because it is a **multi-function port** — pins P3.0 (RXD) and P3.1 (TXD) are reserved for UART serial communication, which this project uses for duty cycle control. Port 1 is a viable alternative, but Port 2 was chosen for its direct 8-bit bus capability
+3. **Polling for serial, interrupts for PWM** — PWM timing is critical (must be jitter-free), while serial reception is latency-tolerant. This prioritization avoids interrupt contention
+4. **Direct register update** — The received byte writes directly to `R0` (duty cycle threshold), achieving sub-microsecond update latency with zero buffering overhead
+5. **8-bit auto-reload timers** — Mode 2 eliminates the need to manually reload timer values in the ISR, reducing ISR complexity and cycle count
 
 ---
 

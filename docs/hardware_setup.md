@@ -36,6 +36,12 @@ This document details the hardware components and connections required to build 
 | GND | Ground | Common ground |
 | EA/VPP | External Access | Tied to VCC (internal ROM) |
 
+> **Why Port 2 for the DAC?**
+>
+> - **Port 0** cannot be used — it has **no internal pull-up resistors** (open-drain outputs). Without external pull-ups, Port 0 pins float when outputting a logic HIGH, making it unreliable for driving the DAC data bus.
+> - **Port 3** cannot be used — it is a **multi-function port**. Pins P3.0 (RXD) and P3.1 (TXD) are dedicated to UART serial communication, which this project uses for receiving duty cycle commands. Using Port 3 for the DAC would conflict with the serial interface.
+> - **Port 1** is a viable alternative (it has internal pull-ups and no alternate functions in use), but **Port 2** was chosen for its direct 8-bit bus capability and convention in 8051-based DAC interfacing designs.
+
 ### DAC0808 Connections
 
 | DAC Pin | Function | Connected To |
