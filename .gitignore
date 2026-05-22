@@ -1,0 +1,41 @@
+# Build Artifacts
+*.hex
+*.bin
+*.obj
+*.lst
+*.map
+*.rst
+*.sym
+*.rel
+*.mem
+*.lk
+*.ihx
+*.cdb
+*.omf
+
+# Keil µVision Project Files
+*.uvproj
+*.uvopt
+*.uvprojx
+*.uvoptx
+*.uvguix.*
+Objects/
+Listings/
+RTE/
+
+# Proteus Simulation
+*.pdsprj.*.backup
+backup/
+
+# IDE & Editor Files
+*.bak
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# OS Generated
+.DS_Store
+Thumbs.db
+desktop.ini
